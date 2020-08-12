@@ -44,8 +44,7 @@ function addExpenseToTotal() {
     singleExpense["expenseDateTime"] = new Date();
 
     // set the heading element whenever the function is called.
-    const headingText = `Total Expenses : ${totalExpense}`
-    totalHeading.textContent = headingText;
+    renderTotalExpense(totalExpense);
 
     // pushing individual expenses into the expenses array.
     expenses.push(singleExpense);
@@ -78,6 +77,12 @@ function deleteExpenseItem(dateValue) {
     const filteredExpenses = expenses
         .filter((expense) => expense.expenseDateTime.valueOf() !== dateValue);
     expenses = filteredExpenses;
+    let initialValue = 0
+    const newTotalExpense = expenses.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue.expenseAmount
+    }, initialValue);
+    console.log(newTotalExpense);
+    renderTotalExpense(newTotalExpense);
     renderList(filteredExpenses);
 };
 
@@ -86,6 +91,11 @@ function renderList(expensesArray) {
     const expenseHTML = expensesArray.map((item) => createListItem(item));
     const joinedExpenseHTML = expenseHTML.join("");
     expenseTable.innerHTML = joinedExpenseHTML;
+}
+
+function renderTotalExpense(ExpenseTotal){
+    const headingText = `Total Expenses : ${ExpenseTotal}`
+    totalHeading.textContent = headingText;
 }
 
 // function to create list items
