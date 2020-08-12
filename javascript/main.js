@@ -81,7 +81,6 @@ function deleteExpenseItem(dateValue) {
     const newTotalExpense = expenses.reduce(function (accumulator, currentValue) {
         return accumulator + currentValue.expenseAmount
     }, initialValue);
-    console.log(newTotalExpense);
     renderTotalExpense(newTotalExpense);
     renderList(filteredExpenses);
 };
